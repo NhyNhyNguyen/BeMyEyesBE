@@ -64,3 +64,24 @@ exports.logout = function(req, res){
         });
     }
 }
+
+exports.getUserDetail = function(req, res){
+    User.findOne({email: req.query.email}).exec(function(err, user){
+        if(err) {
+            return res.json({err})
+        }else if (!user){
+            return res.json({err: 'Username and Password are incorrect'})
+        }
+        bcrypt.compare(req.query.password, user.password, (err, result) => {
+            if(result === true){
+                req.session.user = user
+                res.json({
+                    user: user,
+                    "login": "success"
+                })
+            }else{
+                return res.json({err: 'Username and Password are incorrect'})
+            }
+        })
+    })
+}

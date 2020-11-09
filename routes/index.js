@@ -2,7 +2,7 @@ var express = require('express');
 var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
-const {register, login, logout} = require('../controllers/UserControllers')
+const {register, login, logout, getUserDetail} = require('../controllers/UserControllers')
 const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
 
 var router = express.Router();
@@ -75,6 +75,8 @@ router.get('/logout', requiresLogin, logout)
 router.post('/login', requiresLogout, login)
 
 router.post('/register', UserValidator, register)
+
+router.get('/login', getUserDetail)
 
 router
     .route('/api/v1/cognitive_face/')
