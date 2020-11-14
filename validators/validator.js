@@ -7,7 +7,7 @@ exports.UserValidator = function(req, res, next){
     req.check('username', 'Username is required.').not().isEmpty();
     req.check('username', 'Username must be more than 1 characters').isLength({min:2});
     req.check('password', 'Password is required.').not().isEmpty();
-    req.check('password', 'Password must be more than 6 characters').isLength({min:6});
+    req.check('password', 'Password must be more than 9 characters').isLength({min:9});
     //check for errors
     const errors = req.validationErrors();
     if(errors){
