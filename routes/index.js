@@ -4,6 +4,7 @@ var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
 const {register, login, logout, getUserDetail, getAllUserByRole, update} = require('../controllers/UserControllers')
 const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
+const {sendNotification} = require('../controllers/FileBaseControllers')
 
 var router = express.Router();
 
@@ -41,5 +42,6 @@ router.get('/getAllUserByRole', getAllUserByRole)
 
 router.post('/updateProfile', update)
 
+router.get('/sendNotification', sendNotification)
 
 module.exports = router;

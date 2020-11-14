@@ -1,4 +1,5 @@
 const User = require('../models/UserModels')
+const {sendNotifications} = require('../controllers/FileBaseControllers')
 const bcrypt = require('bcrypt')
 exports.register = function (req, res, next) {
     User.findOne({$or: [{email: req.body.email}, {username: req.body.username}]}, (err, user) => {
@@ -82,33 +83,37 @@ exports.getAllUserByRole = function (req, res) {
         if (err) {
             return res.json({err})
         }
-        let userIDs = []
+        let userIDs = [];
+        let tokens = [];
         users.forEach(function (x) {
             userIDs.push(parseInt(x.id))
+            if (x.token != null && x.token != "") {
+                tokens.push(x.token);
+            }
         })
+        sendNotifications(tokens, req.query.roomID)
         return res.json(userIDs);
     });
 }
 
-exports.update = function (req, res){
-    User.findOne({id: req.body.id}).exec(function (err, user) {
+exports.update = function (req, res) {
+    User.findOne({id: parseInt(req.body.id)}).exec(function (err, user) {
         if (err) {
             return res.json({err})
         }
-        if(req.body.token){
+        if (req.body.token) {
             user.token = req.body.token;
         }
-        if(req.body.username){
+        if (req.body.username) {
             user.username = req.body.username;
         }
-        if(req.body.email){
+        if (req.body.email) {
             user.email = req.body.email;
         }
         user.save((err, result) => {
             if (err) {
                 return res.json({err})
             }
-            res.json({user: result})
         })
         return res.json(user);
     });

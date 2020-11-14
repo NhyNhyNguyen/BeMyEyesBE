@@ -7,7 +7,7 @@ const userSchema = new Schema({
     role: {type: String, require: true, enum: ['admin', 'blind', 'volunteer']},
     password: {type: String, required: true, trim: true, minlength: 6},
     token: {type: String, require: false},
-    id: {type: String, require: false},
+    id: {type: Number, require: false},
 });
 
 module.exports = mongoose.model('User', userSchema)
