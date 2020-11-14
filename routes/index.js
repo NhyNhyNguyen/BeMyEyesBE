@@ -2,7 +2,7 @@ var express = require('express');
 var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
-const {register, login, logout, getUserDetail, getAllUserByRole} = require('../controllers/UserControllers')
+const {register, login, logout, getUserDetail, getAllUserByRole, update} = require('../controllers/UserControllers')
 const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
 
 var router = express.Router();
@@ -38,6 +38,8 @@ router.post('/register', UserValidator, register)
 router.get('/login', getUserDetail)
 
 router.get('/getAllUserByRole', getAllUserByRole)
+
+router.post('/updateProfile', update)
 
 
 module.exports = router;

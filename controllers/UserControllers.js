@@ -83,9 +83,33 @@ exports.getAllUserByRole = function (req, res) {
             return res.json({err})
         }
         let userIDs = []
-        users.forEach(function (x){
+        users.forEach(function (x) {
             userIDs.push(parseInt(x.id))
         })
         return res.json(userIDs);
+    });
+}
+
+exports.update = function (req, res){
+    User.findOne({id: req.body.id}).exec(function (err, user) {
+        if (err) {
+            return res.json({err})
+        }
+        if(req.body.token){
+            user.token = req.body.token;
+        }
+        if(req.body.username){
+            user.username = req.body.username;
+        }
+        if(req.body.email){
+            user.email = req.body.email;
+        }
+        user.save((err, result) => {
+            if (err) {
+                return res.json({err})
+            }
+            res.json({user: result})
+        })
+        return res.json(user);
     });
 }
