@@ -118,3 +118,16 @@ exports.update = function (req, res) {
         return res.json(user);
     });
 }
+
+exports.getSizeUser = function (req, res) {
+    User.find({role: "blind"}).exec(function (err, blinds) {
+        let blindSize = 0;
+        let volunteerSize = 0;
+        blindSize = blinds != null ? blinds.length : 0;
+
+        User.find({role: "volunteer"}).exec(function (err, volunteers) {
+            volunteerSize = volunteers != null ? volunteers.length : 0;
+            return res.json({blind: blindSize, volunteer: volunteerSize})
+        });
+    });
+}

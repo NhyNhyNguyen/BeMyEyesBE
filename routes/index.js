@@ -2,7 +2,7 @@ var express = require('express');
 var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
-const {register, login, logout, getUserDetail, getAllUserByRole, update} = require('../controllers/UserControllers')
+const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser} = require('../controllers/UserControllers')
 const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
 const {sendNotification} = require('../controllers/FileBaseControllers')
 
@@ -43,5 +43,7 @@ router.get('/getAllUserByRole', getAllUserByRole)
 router.post('/updateProfile', update)
 
 router.get('/sendNotification', sendNotification)
+
+router.get('/getSizeUser', getSizeUser)
 
 module.exports = router;
