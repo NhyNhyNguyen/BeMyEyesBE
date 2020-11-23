@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const routes = require('./routes/index');
+const routesRoom = require('./routes/room');
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
@@ -34,7 +35,8 @@ app.use(session({
     })
 }));
 
-app.use('/', routes)
+app.use('/', routes);
+app.use('/room', routesRoom);
 
 app.listen(PORT, () => {console.log("Server started on http://localhost:"+PORT)})
 
