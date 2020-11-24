@@ -10,6 +10,7 @@ exports.register = function (req, res, next) {
                 }
                 const user = new User(req.body)
                 user.password = hash;
+                user.avatarUrl = "";
                 user.save((err, result) => {
                     if (err) {
                         return res.json({err})
@@ -109,6 +110,10 @@ exports.update = function (req, res) {
         }
         if (req.body.email) {
             user.email = req.body.email;
+        }
+
+        if (req.body.avatarUrl) {
+            user.avatarUrl = req.body.avatarUrl;
         }
         user.save((err, result) => {
             if (err) {
