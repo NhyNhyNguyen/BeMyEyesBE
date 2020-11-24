@@ -11,6 +11,7 @@ exports.register = function (req, res, next) {
                 const user = new User(req.body)
                 user.password = hash;
                 user.avatarUrl = "";
+                user.createTime = Date.now();
                 user.save((err, result) => {
                     if (err) {
                         return res.json({err})

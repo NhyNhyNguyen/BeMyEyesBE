@@ -6,6 +6,7 @@ exports.createRoom = function (req, res, next) {
             room.id = req.body.id;
             room.name = req.body.name;
             room.avatarUrl = req.body.avatarUrl;
+            room.createTime = Date.now();
             room.save((err, result) => {
                 if (err) {
                     return res.json({err})

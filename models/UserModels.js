@@ -9,6 +9,7 @@ const userSchema = new Schema({
     token: {type: String, require: false},
     avatarUrl: {type:String, require:false},
     id: {type: Number, require: false},
+    createTime: {type: Number, require:false}
 });
 
 module.exports = mongoose.model('User', userSchema)
