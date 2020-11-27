@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const roomSchema = new Schema({
     id: {type: Number, unique: true, required: true, trim: true},
-    member: {type: Number, require: false},
+    members: {type: Array, require: false},
     name: {type: String},
     avatarUrl: {type: String},
     createTime: {type: Number}

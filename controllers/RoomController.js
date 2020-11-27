@@ -8,7 +8,7 @@ exports.createRoom = function (req, res, next) {
         room.name = req.body.name;
         room.avatarUrl = req.body.avatarUrl;
         room.createTime = Date.now();
-        room.member = null;
+        room.members = null;
         room.save((err, result) => {
             if (err) {
                 return res.json({err})
@@ -20,10 +20,13 @@ exports.createRoom = function (req, res, next) {
 
 exports.joinRoom = function (req, res, next) {
     Room.findOne({id: req.body.id}, (err, room) => {
-        if (room == null || room.member != null) {
+        if (room == null) {
             return res.json({err: 1, message: "Room not found || Room is full"})
         } else {
-            room.member = req.body.userJoinId;
+            if(room.members == null){
+                room.members = [];
+            }
+            room.members.push(req.body.userJoinId);
             room.save((err, result) => {
                 if (err) {
                     return res.json({err: 1, message: "Save error"});
@@ -50,7 +53,7 @@ exports.removeRoom = function (req, res, next) {
 }
 
 exports.getRoomNotFull = function (req, res, next) {
-    Room.find({member: null}, (err, rooms) => {
+    Room.find({members: null}, (err, rooms) => {
         if (rooms != null) {
             return res.json({err: 0, room: rooms})
         }

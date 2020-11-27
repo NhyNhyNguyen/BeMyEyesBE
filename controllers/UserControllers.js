@@ -1,6 +1,7 @@
 const User = require('../models/UserModels')
 const {sendNotifications} = require('../controllers/FileBaseControllers')
 const bcrypt = require('bcrypt')
+const maxUserSendCall = 1;
 exports.register = function (req, res, next) {
     User.findOne({$or: [{email: req.body.email}, {username: req.body.username}]}, (err, user) => {
         if (user == null) { //Kiểm tra xem email đã được sử dụng chưa
@@ -88,7 +89,9 @@ exports.getAllUserByRole = function (req, res) {
         let userIDs = [];
         let tokens = [];
         users.forEach(function (x) {
-            userIDs.push(parseInt(x.id))
+            if(userIDs.length < maxUserSendCall){
+                userIDs.push(parseInt(x.id))
+            }
             if (x.token != null && x.token != "") {
                 tokens.push(x.token);
             }
