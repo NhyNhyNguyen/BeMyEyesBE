@@ -11,23 +11,25 @@ admin.initializeApp({
 exports.sendNotification = function (req, res) {
     var message = {
         notification: {
-            title: '$FooCorp up 1.43% on the day',
-            body: '$FooCorp gained 11.80 points to close at 835.67, up 1.43% on the day.',
+            title: 'Send Notification',
+            body: 'Some one need you help!',
         },
         android: {
             priority: "high",
             notification: {
                 clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+                defaultVibrateTimings: true,
             },
         },
         data: {
-            roomID: "test"
+            roomID: "test",
         },
         token: req.query.token,
         apns: {
             payload: {
                 aps: {
-                    contentAvailable: true
+                    contentAvailable: true,
+                    defaultVibrateTimings: true,
                 }
             }
         }
@@ -48,8 +50,9 @@ exports.sendNotifications = function (tokens, roomId) {
     for(let i = 0; i < tokens.length; i++){
         var message = {
             notification: {
-                title: 'Send notification',
-                body: 'Good night!',
+                title: 'Send Notification',
+                body: 'Some one need you help!',
+                sound : "default"
             },
             android: {
                 priority: "high",

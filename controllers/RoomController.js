@@ -2,20 +2,19 @@ const Room = require('../models/RoomModel')
 exports.createRoom = function (req, res, next) {
     Room.findOne({id: req.body.id}, (err, room) => {
         if (room == null) { //Kiểm tra xem email đã được sử dụng chưa
-            const room = new Room()
-            room.id = req.body.id;
-            room.name = req.body.name;
-            room.avatarUrl = req.body.avatarUrl;
-            room.createTime = Date.now();
-            room.save((err, result) => {
-                if (err) {
-                    return res.json({err})
-                }
-            })
-            return res.json({err: 0, message: "Create room successful"})
-        } else {
-            return res.json({err: 1, message: 'Room has been exit'})
+            room = new Room()
         }
+        room.id = req.body.id;
+        room.name = req.body.name;
+        room.avatarUrl = req.body.avatarUrl;
+        room.createTime = Date.now();
+        room.member = null;
+        room.save((err, result) => {
+            if (err) {
+                return res.json({err})
+            }
+        })
+        return res.json({err: 0, message: "Create room successful"})
     })
 }
 

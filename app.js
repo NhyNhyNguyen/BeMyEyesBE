@@ -35,6 +35,7 @@ app.use(session({
     })
 }));
 
+console.log(Date.now())
 app.use('/', routes);
 app.use('/room', routesRoom);
 
