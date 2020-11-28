@@ -16,6 +16,9 @@ const userSchema = new Schema({
     },
     point: {
         type: Number
+    },
+    helps: {
+        type: Array
     }
 });
 

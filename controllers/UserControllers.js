@@ -1,4 +1,5 @@
 const User = require('../models/UserModels')
+const GlobalData = require('../models/GlobalData')
 const {sendNotifications} = require('../controllers/FileBaseControllers')
 const bcrypt = require('bcrypt')
 const maxUserSendCall = 1;
@@ -13,6 +14,9 @@ exports.register = function (req, res, next) {
                 user.password = hash;
                 user.avatarUrl = "";
                 user.createTime = Date.now();
+                user.helps = [];
+                user.numHelp = 0;
+                user.point = 0;
                 user.save((err, result) => {
                     if (err) {
                         return res.json({err})
@@ -89,7 +93,7 @@ exports.getAllUserByRole = function (req, res) {
         let userIDs = [];
         let tokens = [];
         users.forEach(function (x) {
-            if(userIDs.length < maxUserSendCall){
+            if (userIDs.length < maxUserSendCall) {
                 userIDs.push(parseInt(x.id))
             }
             if (x.token != null && x.token != "") {
@@ -139,4 +143,36 @@ exports.getSizeUser = function (req, res) {
             return res.json({blind: blindSize, volunteer: volunteerSize})
         });
     });
+}
+
+exports.addHistoryAndPoint = function (userId, helpedUserId) {
+    User.findOne({id: userId}).exec(function (err, user) {
+        if (user.helps == null || user.helps.length == 0) {
+            user.helps = [];
+            user.numHelp = 0;
+            user.point = 0;
+        }
+        user.helps.push({time: Date.now(), helpedUserId: helpedUserId});
+        user.numHelp = user.numHelp + 1;
+        user.point = user.point + 10;
+        user.save((err, result) => {
+            if (err) {
+            }
+        });
+    });
+    GlobalData.findOne().exec(
+        function (err, data) {
+            if (data == null) {
+                data = new GlobalData();
+            }
+            if (data.numHelped == null) {
+                data.numHelped = 0;
+            }
+            data.numHelped += 1;
+            data.save((err, result) => {
+                if (err) {
+                }
+            });
+        }
+    )
 }

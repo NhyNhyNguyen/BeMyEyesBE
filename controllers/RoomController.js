@@ -1,4 +1,5 @@
 const Room = require('../models/RoomModel')
+const {addHistoryAndPoint} = require('../controllers/UserControllers')
 exports.createRoom = function (req, res, next) {
     Room.findOne({id: req.body.id}, (err, room) => {
         if (room == null) { //Kiểm tra xem email đã được sử dụng chưa
@@ -27,6 +28,7 @@ exports.joinRoom = function (req, res, next) {
                 room.members = [];
             }
             room.members.push(req.body.userJoinId);
+            addHistoryAndPoint(req.body.userJoinId, req.body.id);
             room.save((err, result) => {
                 if (err) {
                     return res.json({err: 1, message: "Save error"});
