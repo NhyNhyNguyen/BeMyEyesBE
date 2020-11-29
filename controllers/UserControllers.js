@@ -1,4 +1,5 @@
 const User = require('../models/UserModels')
+const Room = require('../models/RoomModel')
 const GlobalData = require('../models/GlobalData')
 const {sendNotifications} = require('../controllers/FileBaseControllers')
 const bcrypt = require('bcrypt')
@@ -176,3 +177,42 @@ exports.addHistoryAndPoint = function (userId, helpedUserId) {
         }
     )
 }
+
+exports.getAllBlind = async function (req, res) {
+    try {
+        let users = await User.find({role: "blind"}).exec();
+        let volunteerNum = await User.count({role: "volunteer"}).exec();
+        let roomNum = await Room.count().exec();
+        users = users != null ? users : [];
+        console.log("=====" + volunteerNum + " " + roomNum)
+        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/blind.ejs', {
+            data: users, globalData: {blindNum: users.length, volunteerNum: volunteerNum, roomNum: roomNum}
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Get list blinds failed',
+            data: null
+        })
+    }
+}
+
+exports.getAllVolunteer = async function (req, res) {
+    try {
+        let volunteers = await User.find({role: "volunteer"}).exec();
+        let blindNum = await User.count({role: "blind"}).exec();
+        let roomNum = await Room.count().exec();
+        volunteers = volunteers != null ? volunteers : [];
+        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/volunteer.ejs', {
+            data: volunteers, globalData: {blindNum: blindNum, volunteerNum: volunteers.length, roomNum: roomNum}
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Get list volunteer failed',
+            data: null
+        })
+    }
+}
+
+
+
+

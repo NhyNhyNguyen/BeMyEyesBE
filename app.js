@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const path = require('path')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const routes = require('./routes/index');
@@ -25,6 +26,9 @@ db.on('error', (err) => {
 app.use(morgan("dev"))
 app.use(bodyParser.json())
 app.use(expressValidator())
+app.set('views', path.join(__dirname, 'app/views'));
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 app.use(session({
     secret: 'work hard',

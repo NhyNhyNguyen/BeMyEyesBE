@@ -1,4 +1,7 @@
 const Room = require('../models/RoomModel')
+const User = require('../models/UserModels')
+const GlobalData = require('../models/GlobalData')
+
 const {addHistoryAndPoint} = require('../controllers/UserControllers')
 exports.createRoom = function (req, res, next) {
     Room.findOne({id: req.body.id}, (err, room) => {
@@ -24,7 +27,7 @@ exports.joinRoom = function (req, res, next) {
         if (room == null) {
             return res.json({err: 1, message: "Room not found || Room is full"})
         } else {
-            if(room.members == null){
+            if (room.members == null) {
                 room.members = [];
             }
             room.members.push(req.body.userJoinId);
@@ -61,4 +64,23 @@ exports.getRoomNotFull = function (req, res, next) {
         }
         return res.json({err: 0, room: []})
     })
+}
+
+exports.getAllRoom = async function (req, res) {
+    try {
+        let rooms = await Room.find().sort({createTime: -1}).exec();
+        let volunteerNum = await User.count({role: "volunteer"}).exec();
+        let blindNum = await User.count({role: "blind"}).exec();
+
+        console.log('rooms length: ', rooms.length)
+        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/rooms.ejs', {
+            data: rooms, globalData: {blindNum: blindNum.length, volunteerNum: volunteerNum, roomNum: rooms.length}
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Get list rooms failed',
+            data: null
+        })
+    }
 }

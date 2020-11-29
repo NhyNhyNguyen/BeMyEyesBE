@@ -5,6 +5,7 @@ const {UserValidator, PostValidator} = require('../validators/validator')
 const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser} = require('../controllers/UserControllers')
 const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
 const {sendNotification} = require('../controllers/FileBaseControllers')
+const UserController = require('../controllers/UserControllers')
 
 var router = express.Router();
 
@@ -45,5 +46,15 @@ router.post('/updateProfile', update)
 router.get('/sendNotification', sendNotification)
 
 router.get('/getSizeUser', getSizeUser)
+
+router.get('/', function (req, res, next) {
+    res.render('/Users/user10/A42/DA/BeYourEyeBE/views/login.ejs', {});
+});
+
+router.get('/volunteer', (req, res, next) =>
+    UserController.getAllVolunteer(req, res));
+
+router.get('/blind', (req, res, next) =>
+    UserController.getAllBlind(req, res));
 
 module.exports = router;

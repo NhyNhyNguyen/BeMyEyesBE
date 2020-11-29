@@ -1,0 +1,183 @@
+<%- include('includes/header.ejs') %>
+
+</head>
+<body>
+<div class="container_room">
+    <div class="row">
+        <div class="menu col-3 p-0 m-0">
+            <div class="logo">
+                <div class="pt-3">
+                    <div class="d-flex d-flex-row justify-content-center">
+                        <div class="d-flex align-content-center my-auto">
+                            <img src="/img/logo.png" style="width: 65px; height: 65px">
+                        </div>
+                        <div class="ml-2 d-flex align-content-center">
+                            <p class="app-title">My Angel Eyes</p>
+                        </div>
+                    </div>
+                    <p class="slogan text-center pt-4">
+                        <span class="d-block">Join a global support community</span>
+                        <span>See the world together</span>
+                    </p>
+                </div>
+            </div>
+            <hr class="ml-4 mr-3 p-0 my-0" color="white">
+            <div>
+                <ul class="nav">
+                    <li class="nav-item d-flex flex-row justify-content-between w-100">
+                        <a href="/volunteer" class="nav-link fa fa-users mr-2"> <span class="mx-2"></span>
+                            VOLUNTEERS</a>
+                    </li>
+                    <li class="nav-item d-flex flex-row justify-content-between w-100 active">
+                        <a href="/blind" class="nav-link fa fa-user mr-2"> <span class="mx-2"></span>
+                            BLINDS</a>
+                        <div class=""></div>
+                        <div class="moving-arrow"></div>
+                    </li>
+                    <li class="nav-item d-flex flex-row justify-content-between w-100">
+                        <a href="/room" class="nav-link fa fa-list-alt mr-2">
+                            <span class="mx-2"></span>
+                            ROOMS</a>
+                    </li>
+                    <li class="nav-item d-flex flex-row justify-content-between w-100">
+                        <a href="/logout" class="nav-link fa fa-arrow-right mr-2">
+                            <span class="mx-2"></span>
+                            LOGOUT</a>
+                    </li>
+                    <
+                </ul>
+            </div>
+        </div>
+        <div class="col-9 p-0 m-0">
+            <div class="global-data d-flex flex-row justify-content-center">
+                <div class="global mx-2">
+                    <div class="d-flex flex-row justify-content-between px-5 py-4" style="background-color: #5ab95b;">
+                        <i class="fa fa-globe-americas fa-7x" style="color: #fff">
+                        </i>
+                        <p class="align-content-center text-center"><span
+                                    class="d-block number"><%= globalData.volunteerNum %></span>
+                            <span class="title">Volunteers</span>
+                        </p>
+                    </div>
+                    <div class="d-block d-flex justify-content-between px-5 py-2">
+                        <span class="title-black">View Details</span>
+                        <div class="align-content-center my-auto">
+                            <i class="fa fa-arrow-alt-circle-right" style="color: #5ab95b"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="global mx-2">
+                    <div class="d-flex flex-row justify-content-between px-5 py-4" style="background-color: #efad4c">
+                        <i class="fa fa-users fa-7x" style="color: #fff">
+                        </i>
+                        <p class="align-content-center text-center">
+                            <span class="d-block number"><%= globalData.blindNum %></span>
+                            <span class="title">Blinds</span>
+                        </p>
+                    </div>
+                    <div class="d-block d-flex justify-content-between px-5 py-2">
+                        <span class="title-black" style="color: #efad4c"> View Details</span>
+                        <div class="align-content-center my-auto">
+                            <i class="fa fa-arrow-alt-circle-right" style="color: #efad4c"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="global mx-2">
+                    <div class="d-flex flex-row justify-content-between px-5 py-4" style="background-color: #d9524e">
+                        <i class="fa fa-handshake fa-7x" style="color: #fff">
+                        </i>
+                        <p class="align-content-center text-center">
+                            <span class="d-block number"><%= globalData.roomNum %></span>
+                            <span class="title">Rooms</span>
+                        </p>
+                    </div>
+                    <div class="d-block d-flex justify-content-between px-5 py-2">
+                        <span class="title-black" style="color: #d9524e"> View Details</span>
+                        <div class="align-content-center my-auto">
+                            <i class="fa fa-arrow-alt-circle-right" style="color: #d9524e"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-table">
+                <h4>List Blinds</h4>
+                <div class="table-responsive">
+                    <table id="mytable" class="table table-bordred table-striped">
+                        <thead>
+                        <th><input type="checkbox" id="checkall"/></th>
+                        <th class="pt-3">Full name</th>
+                        <th>Email</th>
+                        <th>Date Create</th>
+                        <th>Contact</th>
+                        <th>Delete</th>
+                        </thead>
+                        <tbody>
+                        <% if(data.length > 0) { %> <% data.forEach(function(user, index) { %>
+                            <tr>
+                                <% if (index % 2 == 0) { %>
+                                    <style> tr {
+                                            background-color: #f4f3ef
+                                        }</style>
+                                <% } else{
+                                %>
+                                    <style> tr {
+                                            background-color: #fff
+                                        }</style>
+                                <%
+                                } %>
+                                <td><input type="checkbox" class="checkthis"/></td>
+                                <td><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td><%= new Date(user.createTime).toLocaleString();
+                                    %></td>
+                                <td><%= user.username %></td>
+                                <td>
+                                    <p class="text-center" data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button class="btn btn-primary btn-xs" data-title="Delete" data-toggle="modal"
+                                                data-target="#delete"><span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        <% } else { if (data.length > 0) { %>
+                            <p class="No data" style="text-align: center; padding: 0; margin: 0">
+                                Create first room!
+                            </p>
+                        <% } %>
+                        <% } %>
+                        </tbody>
+
+                    </table>
+
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- end container -->
+<%- include('includes/end.ejs') %>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#mytable #checkall").click(function () {
+            if ($("#mytable #checkall").is(':checked')) {
+                $("#mytable input[type=checkbox]").each(function () {
+                    $(this).prop("checked", true);
+                });
+
+            } else {
+                $("#mytable input[type=checkbox]").each(function () {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
+
+        $("[data-toggle=tooltip]").tooltip();
+    });
+
+</script>
+</html>
