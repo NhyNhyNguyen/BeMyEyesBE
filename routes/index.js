@@ -48,7 +48,7 @@ router.get('/sendNotification', sendNotification)
 router.get('/getSizeUser', getSizeUser)
 
 router.get('/', function (req, res, next) {
-    res.render('/Users/user10/A42/DA/BeYourEyeBE/views/login.ejs', {});
+    res.render('login', {});
 });
 
 router.get('/volunteer', (req, res, next) =>

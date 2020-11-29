@@ -26,7 +26,7 @@ db.on('error', (err) => {
 app.use(morgan("dev"))
 app.use(bodyParser.json())
 app.use(expressValidator())
-app.set('views', path.join(__dirname, 'app/views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 

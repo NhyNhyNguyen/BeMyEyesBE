@@ -184,8 +184,7 @@ exports.getAllBlind = async function (req, res) {
         let volunteerNum = await User.count({role: "volunteer"}).exec();
         let roomNum = await Room.count().exec();
         users = users != null ? users : [];
-        console.log("=====" + volunteerNum + " " + roomNum)
-        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/blind.ejs', {
+        res.render('blind', {
             data: users, globalData: {blindNum: users.length, volunteerNum: volunteerNum, roomNum: roomNum}
         });
     } catch (error) {
@@ -202,7 +201,7 @@ exports.getAllVolunteer = async function (req, res) {
         let blindNum = await User.count({role: "blind"}).exec();
         let roomNum = await Room.count().exec();
         volunteers = volunteers != null ? volunteers : [];
-        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/volunteer.ejs', {
+        res.render('volunteer', {
             data: volunteers, globalData: {blindNum: blindNum, volunteerNum: volunteers.length, roomNum: roomNum}
         });
     } catch (error) {

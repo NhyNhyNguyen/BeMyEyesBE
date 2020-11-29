@@ -73,7 +73,7 @@ exports.getAllRoom = async function (req, res) {
         let blindNum = await User.count({role: "blind"}).exec();
 
         console.log('rooms length: ', rooms.length)
-        res.render('/Users/user10/A42/DA/BeYourEyeBE/views/rooms.ejs', {
+        res.render('rooms', {
             data: rooms, globalData: {blindNum: blindNum.length, volunteerNum: volunteerNum, roomNum: rooms.length}
         });
 
