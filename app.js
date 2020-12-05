@@ -9,6 +9,8 @@ const routesRoom = require('./routes/room');
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -25,6 +27,7 @@ db.on('error', (err) => {
 
 app.use(morgan("dev"))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressValidator())
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
@@ -42,6 +45,10 @@ app.use(session({
 console.log(Date.now())
 app.use('/', routes);
 app.use('/room', routesRoom);
+// Middleware to catch 404 errors
+app.use(function (req, res, next) {
+    res.status(404).sendFile(process.cwd() + '/views/404.htm');
+});
 
 app.listen(PORT, () => {console.log("Server started on http://localhost:"+PORT)})
 

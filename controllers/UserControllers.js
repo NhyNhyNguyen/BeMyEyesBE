@@ -52,6 +52,29 @@ exports.login = function (req, res) {
     })
 }
 
+exports.loginByAdmin = function (req, res) {
+    User.findOne({email: req.body.username }).exec(function (err, user) {
+        if (err) {
+            return res.json({err})
+        } else if (!user) {
+            res.redirect('/')
+        }
+        else {
+            bcrypt.compare(req.body.password, user.password, (err, result) => {
+                if (result === true && user.role ==='admin') {
+                    req.session.user = user
+                    res.redirect("/volunteer")
+
+                } else {
+                    res.redirect('/')
+                    return res.json({err: 'Username and Password are incorrect'})
+                }
+            })
+        }
+    })
+}
+
+
 exports.logout = function (req, res) {
     if (req.session) {
         // delete session object

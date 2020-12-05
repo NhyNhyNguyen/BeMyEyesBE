@@ -2,7 +2,7 @@ var express = require('express');
 var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
-const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser} = require('../controllers/UserControllers')
+const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser,loginByAdmin} = require('../controllers/UserControllers')
 const {sendNotification} = require('../controllers/FileBaseControllers')
 const UserController = require('../controllers/UserControllers')
 
@@ -16,6 +16,14 @@ function requiresLogout(req, res, next) {
     }
 }
 
+function loggedIn(req, res, next) {
+    if (req.session && req.session.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 function requiresLogin(req, res, next) {
     if (req.session && req.session.user) {
         return next();
@@ -24,9 +32,11 @@ function requiresLogin(req, res, next) {
     }
 }
 
-router.get('/logout', requiresLogin, logout)
 
 router.post('/login', requiresLogout, login)
+
+router.post('/auth/login',loginByAdmin);
+
 
 router.post('/register', UserValidator, register)
 
@@ -44,10 +54,22 @@ router.get('/', function (req, res, next) {
     res.render('login', {});
 });
 
-router.get('/volunteer', (req, res, next) =>
+router.get('/volunteer', loggedIn,(req, res, next) =>
     UserController.getAllVolunteer(req, res));
 
-router.get('/blind', (req, res, next) =>
+router.get('/blind',loggedIn, (req, res, next) =>
     UserController.getAllBlind(req, res));
+
+router.get('/logout', function(req, res, next) {
+    // remove the req.user property and clear the login session
+    req.logout();
+    res.clearCookie('connect.sid', {path: '/'});
+    res.clearCookie('connection.sid');
+    // destroy session data
+    req.session = null;
+
+    // redirect to homepage
+    res.redirect('/');
+});
 
 module.exports = router;
