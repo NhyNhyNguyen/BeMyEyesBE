@@ -3,7 +3,6 @@ var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
 const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser} = require('../controllers/UserControllers')
-const {listPost, detailPost, createPost, editPost, deletePost} = require('../controllers/PostControllers')
 const {sendNotification} = require('../controllers/FileBaseControllers')
 const UserController = require('../controllers/UserControllers')
 
@@ -24,12 +23,6 @@ function requiresLogin(req, res, next) {
         return res.json({err: 'You must be logged in to view this page.'});
     }
 }
-
-router.get('/posts', requiresLogin, listPost)
-router.get('/post/:id', requiresLogin, detailPost)
-router.post('/post/new', requiresLogin, PostValidator, createPost)
-router.put('/post/:id/edit', requiresLogin, PostValidator, editPost)
-router.delete('/post/:id', requiresLogin, deletePost)
 
 router.get('/logout', requiresLogin, logout)
 

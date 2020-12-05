@@ -74,7 +74,7 @@ exports.getAllRoom = async function (req, res) {
 
         console.log('rooms length: ', rooms.length)
         res.render('rooms', {
-            data: rooms, globalData: {blindNum: blindNum.length, volunteerNum: volunteerNum, roomNum: rooms.length}
+            data: rooms, globalData: {blindNum: blindNum, volunteerNum: volunteerNum, roomNum: rooms.length}
         });
 
     } catch (error) {

@@ -204,9 +204,14 @@ button {
 th{
     background-color: #212e31;
     color: white;
-    height: 65px;
+    height: 70px;
     padding: 10px 10px 20px !important;
     font-size: 18px;
+}
+
+tr{
+    height: 55px;
+    padding: 10px 10px 20px !important;
 }
 
 #mytable{
