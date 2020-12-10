@@ -173,6 +173,9 @@ a:hover {
 
 .message__error {
     color: red;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .message__success {

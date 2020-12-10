@@ -57,7 +57,7 @@ exports.loginByAdmin = function (req, res) {
         if (err) {
             return res.json({err})
         } else if (!user) {
-            res.redirect('/')
+            res.render('login', {error: "Email or password incorrect"});
         }
         else {
             bcrypt.compare(req.body.password, user.password, (err, result) => {
@@ -66,8 +66,7 @@ exports.loginByAdmin = function (req, res) {
                     res.redirect("/volunteer")
 
                 } else {
-                    res.redirect('/')
-                    return res.json({err: 'Username and Password are incorrect'})
+                    res.render('login', {error: "User don't have permission"});
                 }
             })
         }

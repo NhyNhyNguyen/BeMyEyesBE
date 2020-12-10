@@ -35,8 +35,7 @@ function requiresLogin(req, res, next) {
 
 router.post('/login', requiresLogout, login)
 
-router.post('/auth/login',loginByAdmin);
-
+router.post('/signIn', loginByAdmin)
 
 router.post('/register', UserValidator, register)
 
@@ -51,6 +50,10 @@ router.get('/sendNotification', sendNotification)
 router.get('/getSizeUser', getSizeUser)
 
 router.get('/', function (req, res, next) {
+    res.render('login', {});
+});
+
+router.get('/signIn', function (req, res, next) {
     res.render('login', {});
 });
 

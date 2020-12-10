@@ -9,47 +9,11 @@
               Sign In
           </span>
             <div>
-                <form action="/auth/register" class="register-form" method="post">
-
-                    <div class="login__info">
-                        <span class="login__info__txt"> Username </span>
-                    </div>
-                    <div class="login__input validate-input" data-validate="Username is required!">
-                        <input type="text" class="input__info" name="username" required>
-                    </div>
-
+                <form action="/signIn" class="login-form" method="post">
                     <div class="login__info">
                         <span class="login__info__txt"> Email </span>
                     </div>
-                    <div class="login__input validate-input" data-validate="Password is required!">
-                        <input type="email" class="input__info" name="email" required>
-                    </div>
-
-                    <div class="login__info">
-                        <span class="login__info__txt"> Password </span>
-                    </div>
-                    <div class="login__input validate-input" data-validate="Password is required!">
-                        <input type="password" class="input__info" name="password" required>
-                    </div>
-
-                    <div class="login__info">
-                        <span class="login__info__txt"> Confirm password </span>
-                    </div>
-                    <div class="login__input validate-input" data-validate="Confirm password is required!">
-                        <input type="password" class="input__info" name="cfpassword" required>
-                    </div>
-
-                    <button type="submit" class="login__btn">Sign up</button>
-                    <div class="sign-in__sign-up">
-                        <p class="message">Already registered? <a href="#">Sign In</a></p>
-                    </div>
-
-                </form>
-                <form action="/auth/login" class="login-form" method="post">
-                    <div class="login__info">
-                        <span class="login__info__txt"> Username </span>
-                    </div>
-                    <div class="login__input validate-input" data-validate="Username is required!">
+                    <div class="login__input validate-input" data-validate="Email is required!">
                         <input type="text" class="input__info" name="username" required>
                     </div>
 
@@ -59,6 +23,10 @@
                     <div class="login__input validate-input" data-validate="Password is required!">
                         <input type="password" class="input__info" name="password" required>
                     </div>
+
+                    <% if (typeof error != "undefined" ) { %>
+                            <p class="message__error text-center"><%= error%></p>
+                    <% }  %>
 
 
                     <div class="login__form__btn">
