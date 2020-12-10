@@ -3,7 +3,7 @@ const Room = require('../models/RoomModel')
 const GlobalData = require('../models/GlobalData')
 const {sendNotifications} = require('../controllers/FileBaseControllers')
 const bcrypt = require('bcrypt')
-const maxUserSendCall = 1;
+const maxUserSendCall = 10;
 exports.register = function (req, res, next) {
     User.findOne({$or: [{email: req.body.email}, {username: req.body.username}]}, (err, user) => {
         if (user == null) { //Kiểm tra xem email đã được sử dụng chưa

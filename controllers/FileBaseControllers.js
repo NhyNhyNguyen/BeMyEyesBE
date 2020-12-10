@@ -52,12 +52,12 @@ exports.sendNotifications = function (tokens, roomId) {
             notification: {
                 title: 'Send Notification',
                 body: 'Some one need you help!',
-                sound : "default"
             },
             android: {
                 priority: "high",
                 notification: {
                     clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+                    defaultVibrateTimings: true,
                 },
             },
             data: {
@@ -67,7 +67,8 @@ exports.sendNotifications = function (tokens, roomId) {
             apns: {
                 payload: {
                     aps: {
-                        contentAvailable: true
+                        contentAvailable: true,
+                        defaultVibrateTimings: true,
                     }
                 }
             }
