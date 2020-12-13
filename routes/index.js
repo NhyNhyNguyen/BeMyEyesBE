@@ -3,6 +3,7 @@ var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
 const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser,loginByAdmin, deleteUserById} = require('../controllers/UserControllers')
+const { deleteRoomById} = require('../controllers/RoomController')
 const {sendNotification} = require('../controllers/FileBaseControllers')
 const UserController = require('../controllers/UserControllers')
 
@@ -76,5 +77,6 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.delete('/users/:id',deleteUserById)
+router.delete('/rooms/:id',deleteRoomById)
 
 module.exports = router;

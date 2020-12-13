@@ -84,3 +84,21 @@ exports.getAllRoom = async function (req, res) {
         })
     }
 }
+
+exports.deleteRoomById = async  function (req, res){
+    let id = req.params.id;
+    try {
+        let room = await Room.deleteOne({id: id}).exec();
+        return  res.json({
+            status: room.deletedCount ? 200 : 400,
+            message: room.deletedCount ? 'Delete data success!' : 'Room is not exist',
+        });
+    } catch (error) {
+        return res.json( {
+            status: 500,
+            isDelete: true,
+            message: 'Delete data failed',
+            data: error
+        });
+    }
+}
