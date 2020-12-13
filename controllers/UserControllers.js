@@ -234,6 +234,24 @@ exports.getAllVolunteer = async function (req, res) {
     }
 }
 
+exports.deleteUserById = async  function (req, res){
+    let id = req.params.id;
+    try {
+        let user = await User.deleteOne({id: id}).exec();
+        return  res.json({
+            status: user.deletedCount ? 200 : 400,
+            message: user.deletedCount ? 'Delete data success!' : 'User is not exist',
+        });
+    } catch (error) {
+        return res.json( {
+            status: 500,
+            isDelete: true,
+            message: 'Delete data failed',
+            data: error
+        });
+    }
+}
+
 
 
 

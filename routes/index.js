@@ -2,7 +2,7 @@ var express = require('express');
 var test = require('./../page/test');
 var fs = require('fs');
 const {UserValidator, PostValidator} = require('../validators/validator')
-const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser,loginByAdmin} = require('../controllers/UserControllers')
+const {register, login, logout, getUserDetail, getAllUserByRole, update, getSizeUser,loginByAdmin, deleteUserById} = require('../controllers/UserControllers')
 const {sendNotification} = require('../controllers/FileBaseControllers')
 const UserController = require('../controllers/UserControllers')
 
@@ -74,5 +74,7 @@ router.get('/logout', function(req, res, next) {
     // redirect to homepage
     res.redirect('/');
 });
+
+router.delete('/users/:id',deleteUserById)
 
 module.exports = router;
