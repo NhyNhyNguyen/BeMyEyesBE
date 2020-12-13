@@ -105,6 +105,7 @@
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
                         <th><input type="checkbox" id="checkall"/></th>
+                        <th>Avatar</th>
                         <th class="pt-3">Full name</th>
                         <th>Email</th>
                         <th>Date Create</th>
@@ -127,6 +128,7 @@
                             <tr>
                                 <td
                                 ><input type="checkbox" class="checkthis"/></td>
+                                <td><img class="avatar__user" src="<%=user.avatarUrl%>"></td>
                                 <td><%= user.username %></td>
                                 <td><%= user.email %></td>
                                 <td><%= new Date(user.createTime).toLocaleString();
@@ -162,6 +164,7 @@
 <!-- end container -->
 <%- include('includes/end.ejs') %>
 </body>
+<script src="/js/volunteer.js"></script>
 <script>
     $(document).ready(function () {
         $("#mytable #checkall").click(function () {
