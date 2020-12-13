@@ -218,8 +218,11 @@ tr{
     box-shadow: 0 2px 4.7px 0.4px rgba(0, 0, 0, .1);
 }
 
-.avatar__user {
-    height: 32px;
-    width: 32px;
+.avatar-user {
+    height: 4rem;
+    width: 4rem;
     border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid white;
+    overflow: hidden;
 }

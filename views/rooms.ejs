@@ -105,7 +105,6 @@
                 <div class="table-responsive">
                     <table id="mytable" class="table table-bordred table-striped">
                         <thead>
-                        <th><input type="checkbox" id="checkall"/></th>
                         <th class="pt-3">Index</th>
                         <th>RoomId</th>
                         <th>Time Create</th>
@@ -127,8 +126,6 @@
                                 <%
                                 } %>
                                 <tr id="<%= room.id%>">
-                                <td
-                                ><input type="checkbox" class="checkthis"/></td>
                                 <td><%= index %></td>
                                 <td><%= room.id %></td>
                                 <td><%= new Date(room.createTime).toLocaleString();
